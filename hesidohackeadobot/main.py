@@ -163,7 +163,6 @@ def handle_start(message):
 @bot.message_handler(commands=['users'])
 def handle_users(message):
     _logger.info("/users")
-    _logger.info(os.environ)
     HSHBOT_ADMIN_ID = int(os.environ['HSHBOT_ADMIN_ID'])
     if message.from_user.id == HSHBOT_ADMIN_ID:
         users = db.get_users()

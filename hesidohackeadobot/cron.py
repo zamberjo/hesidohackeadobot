@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import db
+import os
 import logging
 from utils import show_data
 from utils import check_email

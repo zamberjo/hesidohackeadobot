@@ -3,6 +3,7 @@
 __author__ = 'Jose Zambudio Bernabeu'
 
 import os
+import sys
 import logging
 import argparse
 import traceback
@@ -53,13 +54,21 @@ def start():
             default='/var/log/hshbot/hesidohackeado-bot.log')
         args = parser.parse_args()
 
+        FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
         if args.logfile:
-            FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
             logging.basicConfig(
                 format=FORMAT,
                 filename=args.logfile[0],
                 level=logging.INFO
             )
+            _logger = logging.getLogger(__name__)
+        else:
+            logging.basicConfig(
+                format=FORMAT,
+                stream=sys.stdout,
+                level=logging.DEBUG
+            )
+            _logger = logging.getLogger(__name__)
 
         Config = ConfigParser.ConfigParser()
         Config.read(args.confile[0])
@@ -98,6 +107,10 @@ def start():
             sys.exit()
 
         # Cron Record.
+        _logger.info('cron_minute_on = %r' % (cron_minute_on))
+        _logger.info('cron_minute_every = %r' % (cron_minute_every))
+        _logger.info('cron_hour_on = %r' % (cron_hour_on))
+        _logger.info('cron_hour_every = %r' % (cron_hour_every))
         do_cron_record(cron_minute_on, cron_minute_every, cron_hour_on, cron_hour_every)
 
         # Start!
