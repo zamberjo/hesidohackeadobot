@@ -1,0 +1,2 @@
+debian/hesidohackeado-bot.conf /etc/hshbot/
+README.md /usr/share/doc/hshbot

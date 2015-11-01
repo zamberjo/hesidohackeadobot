@@ -1,0 +1,5 @@
+/var/log/hshbot/*.log {
+    copytruncate
+    missingok
+    notifempty
+}

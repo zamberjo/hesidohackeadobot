@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e
+
+HSHBOT_CONFIGURATION_DIR=/etc/hshbot/
+HSHBOT_CONFIGURATION_FILE=hesidohackeado-bot.conf
+HSHBOT_LOG_DIR=/var/log/hshbot
+HSHBOT_USER="hshbot"
+
+if [[ ! `getent passwd | grep -q "^hshbot:"` ]]; then
+    adduser --system --quiet --group $HSHBOT_USER
+fi
+
+# Register "$HSHBOT_USER" as a postgres user with "Create DB" role attribute
+su -u mongodb mongo -u $HSHBOT_USER hesidohackeado
+
+# Configutation File
+mkdir -p $HSHBOT_CONFIGURATION_DIR
+mv ./$HSHBOT_CONFIGURATION_FILE $HSHBOT_CONFIGURATION_DIR
+
+# Log
+mkdir -p $HSHBOT_LOG_DIR
+chown $HSHBOT_USER:$HSHBOT_USER $HSHBOT_LOG_DIR
+chmod 0750 $HSHBOT_LOG_DIR
+;;
+
+#DEBHELPER#
+
+exit 0
