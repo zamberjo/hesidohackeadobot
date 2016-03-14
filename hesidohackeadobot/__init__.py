@@ -4,13 +4,14 @@ __author__ = 'Jose Zambudio Bernabeu'
 
 import os
 import sys
+import cron
 import logging
 import argparse
 import traceback
 import ConfigParser
 from crontab import CronTab
 
-def do_cron_record(cron_minute_on, cron_minute_every, cron_hour_on, cron_hour_every):
+def do_cron_record(cron_minute_on, cron_minute_every, cron_hour_on, cron_hour_every, confile):
     # crontab for user hshbot
     my_user_cron = CronTab(user=True)
 
@@ -19,7 +20,7 @@ def do_cron_record(cron_minute_on, cron_minute_every, cron_hour_on, cron_hour_ev
 
     # Create new job
     job  = my_user_cron.new(
-        command='python -c "import hesidohackeadobot; hesidohackeadobot.cron.check(hesidohackeadobot.main.bot)"',
+        command='python -c "import hesidohackeadobot; hesidohackeadobot.cron.check(bot=False, confile=\'%s\')"' % (confile),
         comment='HeSidoHAckeadoBotCron'
     )
 
@@ -111,7 +112,7 @@ def start():
         _logger.info('cron_minute_every = %r' % (cron_minute_every))
         _logger.info('cron_hour_on = %r' % (cron_hour_on))
         _logger.info('cron_hour_every = %r' % (cron_hour_every))
-        do_cron_record(cron_minute_on, cron_minute_every, cron_hour_on, cron_hour_every)
+        do_cron_record(cron_minute_on, cron_minute_every, cron_hour_on, cron_hour_every, args.confile[0])
 
         # Start!
         import main

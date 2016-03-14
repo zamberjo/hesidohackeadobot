@@ -1,17 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
-import re
-from glob import glob
-from setuptools import find_packages, setup
-from os.path import join, dirname
+from setuptools import setup
 
 setup(
-    name = 'HeSidoHackeadoBot',
-    packages = ['hesidohackeadobot'],
-    version = '1.0',
-    description = 'Bot telegram para uso de la API de www.hesidohackeado.com',
+    name='HeSidoHackeadoBot',
+    packages=['hesidohackeadobot'],
+    version='1.0',
+    description='Bot telegram para uso de la API de www.hesidohackeado.com',
     url='https://github.com/zamberjo/hesidohackeadobot',
     author='Jose Zambudio Bernabeu',
     author_email='zamberjo@gmail.com',

@@ -16,7 +16,7 @@ from utils import check_email
 from telebot import types
 
 _logger = logging.getLogger(__name__)
-bot = telebot.TeleBot(os.environ["HSHBOT_TOKEN"])
+bot = telebot.TeleBot(os.environ.get("HSHBOT_TOKEN"))
 
 TEXT_MESSAGES = {
     'help':
@@ -180,7 +180,7 @@ def handle_users(message):
     _logger.info("/croncheck")
     HSHBOT_ADMIN_ID = int(os.environ['HSHBOT_ADMIN_ID'])
     if message.from_user.id == HSHBOT_ADMIN_ID:
-        cron.check(bot)
+        cron.check(bot=bot)
 
 @bot.message_handler(commands=['checkunread'])
 def handle_checkunread(message):
